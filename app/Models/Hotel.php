@@ -25,4 +25,8 @@ class Hotel extends Model
             return $query;
         }
     }
+
+    public function country() {
+        return $this->belongsTo(Country::class);
+    }
 }

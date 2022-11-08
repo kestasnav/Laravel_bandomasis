@@ -15,11 +15,11 @@
                             <table class="table">
                                 <thead>
 
-                                <h5>Viešbučių filtravimas</h5>
+                                <h5>Viešbučių filtravimas pagal šalį</h5>
                                 <form method="post" action="{{ route('hotels.filter') }}">
                                     @csrf
                                     <div class="mb-3">
-                                        <label>Pasirinkite viešbutį</label>
+                                        <label>Pasirinkite šalį</label>
                                         <select class="form-select" name="country_id">
                                             <option value="" {{ isset($filter_country_id)&&($filter_country_id==null)?'selected':'' }}>-</option>
                                             @foreach($countries as $country)
@@ -34,17 +34,17 @@
                                     <th>Nuotrauka</th>
                                     <th>Viešbučio pavadinimas</th>
                                     <th>Šalis</th>
-
+                                    <th><a href="{{ route('price.order','price') }}">Kaina
+                                            @if(isset($orderBy)&&$orderBy=='price')
+                                                {!!($orderDirection=='DESC')?'&uparrow;':'&downarrow;' !!}
+                                            @endif</a></th>
                                     <th>Atostogų pradžia</th>
                                     <th>Atostogų pabaiga</th>
                                     <th></th>
                                     <th></th>
                                     <th></th>
                                 </tr>
-                                </thead> <th><a href="{{ route('price.order','price') }}">Kaina
-                                        @if(isset($orderBy)&&$orderBy=='price')
-                                            {!!($orderDirection=='DESC')?'&uparrow;':'&downarrow;' !!}
-                                        @endif</a></th>
+                                </thead>
                                 <tbody>
                                 <tr>
 
@@ -52,7 +52,7 @@
 
                                         <td><img src="{{ route('images',$hotel->img)}}" style=" width: 324px; height: 216px;"></td>
                                         <td> {{ $hotel->hotel_name }}  </td>
-                                        <td> {{ $hotel->country_id}}  </td>
+                                        <td> {{ $hotel->country->country_name}}  </td>
                                         <td> {{ $hotel->price }} EUR </td>
                                         <td> {{ $hotel->start }}  </td>
                                         <td> {{ $hotel->end }}  </td>
@@ -69,13 +69,18 @@
                                                 </form>
                                             @endcan
                                         </td>
+{{--                                    @if ($uzsakymai->where('user_id', Auth::user()->id)->where('hotel_id',$hotel->id)->isEmpty() )--}}
+{{--                                      <td>  NEUZSAKYTAS</td>--}}
+{{--                                        @else--}}
+{{--                                        <td> UZSAKYTAS</td>--}}
+{{--                                        @endif--}}
+{{--                                        @foreach($uzsakymai as $uzsakymas)--}}
+{{--                                            @break--}}
                                         <td>
-                                        @foreach($uzsakymai as $uzsakymas)
-                                            @if(Auth::user()->id == $uzsakymas->user_id && $hotel->id == $uzsakymas->hotel_id && $uzsakymas->status == "pateiktas")
 
-                                                <p>Užsakymas pateiktas</p>
+                                            @if ($uzsakymai->where('user_id', Auth::user()->id)->where('hotel_id',$hotel->id)->isEmpty() )
 
-                                            @else
+
                                                 <form action="{{ route('pateikti', $hotel->id) }}" method="post">
                                                     @csrf
                                                     @method('PUT')
@@ -83,13 +88,22 @@
                                                     <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                                                     <input type="hidden" name="hotel_id" value="{{$hotel->id}}">
 
+
+
                                                     <button class="btn btn-info">Užsisakyti</button>
 
+
+
                                                 </form>
-                                                    @break
+                                            @else
+                                                <p>Užsakymas pateiktas</p>
+
+
                                             @endif
-                                            @endforeach
+
                                         </td>
+
+
 
                                 </tr>
 

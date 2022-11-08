@@ -45,7 +45,7 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
-
+                        @if(Auth::user()!=null)
                         <li class="nav-item">
                             <form class="input-group" method="post" {{ route('find.post') }}"  >
                             @csrf
@@ -56,6 +56,7 @@
                             </button>
                             </form>
                         </li>
+                        @endif
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))

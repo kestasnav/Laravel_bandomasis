@@ -15,12 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::middleware('auth')->group(function () {
+
 Route::get('/',[HotelController::class, 'index'])->name('home');
 
 Route::resource('hotels', HotelController::class);
 Route::resource('countries', CountryController::class);
 
-Auth::routes();
+
 
 Route::get('/image/{name}',[HotelController::class, 'display'])
     ->name('images');
@@ -33,3 +35,6 @@ Route::post('hotels/filter',[HotelController::class, 'filterHotels'])->name('hot
 
 Route::get('hotels/order/{field}',[HotelController::class,'orderPrice'])->name('price.order');
 
+});
+
+Auth::routes();
