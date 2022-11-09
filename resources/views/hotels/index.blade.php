@@ -77,7 +77,7 @@
 {{--                                        @foreach($uzsakymai as $uzsakymas)--}}
 {{--                                            @break--}}
                                         <td>
-
+                                            @can('user')
                                             @if ($uzsakymai->where('user_id', Auth::user()->id)->where('hotel_id',$hotel->id)->isEmpty() )
 
 
@@ -100,7 +100,7 @@
 
 
                                             @endif
-
+                                            @endcan
                                         </td>
 
 

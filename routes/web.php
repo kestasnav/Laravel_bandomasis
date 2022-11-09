@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\HotelController;
+use App\Http\Controllers\UzsakymaiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,13 +22,16 @@ Route::get('/',[HotelController::class, 'index'])->name('home');
 
 Route::resource('hotels', HotelController::class);
 Route::resource('countries', CountryController::class);
+Route::resource('orders', UzsakymaiController::class);
 
-
+Route::get('patvirtinimas',[UzsakymaiController::class, 'adminindex'])->name('adminindex');
 
 Route::get('/image/{name}',[HotelController::class, 'display'])
     ->name('images');
 
 Route::put('pateikti/{add}', [HotelController::class, 'pateiktiUzsakyma'])->name('pateikti');
+
+Route::put('atsaukti/{add}', [HotelController::class, 'atsauktiUzsakyma'])->name('atsaukti');
 
 Route::post('posts/search',[HotelController::class, 'findPost'])->name('find.post');
 

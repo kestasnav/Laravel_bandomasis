@@ -11,11 +11,11 @@ class Uzsakymai extends Model
 
     protected $table='uzsakymai';
 
-    public function users() {
+    public function user() {
         return $this->belongsTo(User::class);
     }
 
-    public function hotels() {
+    public function hotel() {
         return $this->belongsTo(Hotel::class);
     }
 }

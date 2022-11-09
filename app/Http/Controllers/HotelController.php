@@ -150,6 +150,17 @@ class HotelController extends Controller
         return redirect()->back();
     }
 
+    public  function atsauktiUzsakyma(Uzsakymai $uzsakymai, Request $request, $add)
+    {
+        $uzsakymai=Uzsakymai::find($add);
+
+        $uzsakymai->status=$request->status;
+        $uzsakymai->user_id=$request->user_id;
+        $uzsakymai->hotel_id=$request->hotel_id;
+        $uzsakymai->save();
+        return redirect()->back();
+    }
+
     public function findPost(Request $request) {
         $request->session()->put('find_post', $request->hotel_name);
         return redirect()->route('hotels.index');

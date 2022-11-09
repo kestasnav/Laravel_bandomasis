@@ -38,9 +38,22 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('home') }}"> Hotels </a>
                         </li>
+
+                        @can('edit')
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('countries.index') }}"> Countries </a>
                         </li>
+                        @endcan
+                        @can('user')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('orders.index') }}">Mano užsakymai</a>
+                        </li>
+                        @endcan
+                        @can('edit')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('adminindex') }}">Užsakymų patvirtinimas</a>
+                            </li>
+                        @endcan
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -50,7 +63,7 @@
                             <form class="input-group" method="post" {{ route('find.post') }}"  >
                             @csrf
                             @method('GET')
-                            <input class="form-control" type="search" name="search" placeholder="{{__('Paieškos tekstas')}}">
+                            <input class="form-control" type="search" name="search" placeholder="{{__('Paieška pagal viešbutį')}}">
                             <button class="btn btn-primary">
                                 <i class="fas fa-search"></i>
                             </button>
