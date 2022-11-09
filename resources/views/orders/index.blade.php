@@ -34,7 +34,7 @@
                                 @endcan
 
                                 <td>
-                                    @can('user')
+
                                         @if ($order->status == 'pateiktas' )
 
                                             <form action="{{ route('atsaukti', $order->id) }}" method="post">
@@ -49,7 +49,27 @@
                                             </form>
 
                                         @endif
-                                    @endcan
+
+                                            @if ($order->status == 'patvirtintas' )
+
+                                                <form action="{{ route('ivertinti', $order->hotel_id) }}" method="post">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <label>Įvertinkite viešbutį:</label>
+                                                    <select name="ivertinimas">
+                                                        <option value="5">5</option>
+                                                        <option value="4">4</option>
+                                                        <option value="3">3</option>
+                                                        <option value="2">2</option>
+                                                        <option value="1">1</option>
+                                                    </select>
+
+                                                    <button class="btn btn-info">Įvertinti</button>
+
+                                                </form>
+
+                                            @endif
+
                                 </td>
 
 

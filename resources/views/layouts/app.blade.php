@@ -36,12 +36,12 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('home') }}"> Hotels </a>
+                            <a class="nav-link" href="{{ route('home') }}"> Viešbučiai </a>
                         </li>
 
                         @can('edit')
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('countries.index') }}"> Countries </a>
+                            <a class="nav-link" href="{{ route('countries.index') }}"> Šalys </a>
                         </li>
                         @endcan
                         @can('user')
@@ -59,6 +59,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         @if(Auth::user()!=null)
+                            @can('user')
                         <li class="nav-item">
                             <form class="input-group" method="post" {{ route('find.post') }}"  >
                             @csrf
@@ -69,6 +70,7 @@
                             </button>
                             </form>
                         </li>
+                            @endcan
                         @endif
                         <!-- Authentication Links -->
                         @guest

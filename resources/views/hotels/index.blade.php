@@ -14,7 +14,7 @@
                             @endcan
                             <table class="table">
                                 <thead>
-
+                                @can('user')
                                 <h5>Viešbučių filtravimas pagal šalį</h5>
                                 <form method="post" action="{{ route('hotels.filter') }}">
                                     @csrf
@@ -29,15 +29,21 @@
                                     </div>
                                     <button class="btn btn-outline-success">Filtruoti</button>
                                 </form>
-
+                                @endcan
                                 <tr>
                                     <th>Nuotrauka</th>
                                     <th>Viešbučio pavadinimas</th>
+                                    <th>Klientų įvertinimas</th>
                                     <th>Šalis</th>
+                                    @can('user')
                                     <th><a href="{{ route('price.order','price') }}">Kaina
                                             @if(isset($orderBy)&&$orderBy=='price')
                                                 {!!($orderDirection=='DESC')?'&uparrow;':'&downarrow;' !!}
                                             @endif</a></th>
+                                    @endcan
+                                    @can('edit')
+                                        <th>Kaina</th>
+                                    @endcan
                                     <th>Atostogų pradžia</th>
                                     <th>Atostogų pabaiga</th>
                                     <th></th>
@@ -52,6 +58,7 @@
 
                                         <td><img src="{{ route('images',$hotel->img)}}" style=" width: 324px; height: 216px;"></td>
                                         <td> {{ $hotel->hotel_name }}  </td>
+                                        <td> {{ round($hotel->rate_sum/$hotel->rate_count, 1) }} <i class="fa fa-star text-warning"></i>  </td>
                                         <td> {{ $hotel->country->country_name}}  </td>
                                         <td> {{ $hotel->price }} EUR </td>
                                         <td> {{ $hotel->start }}  </td>

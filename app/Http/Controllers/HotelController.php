@@ -187,4 +187,12 @@ class HotelController extends Controller
         return redirect()->route('hotels.index');
     }
 
+    public function rateHotels(Request $request, $id){
+        $rate=Hotel::find($id);
+        $rate->rate_count++;
+        $rate->rate_sum=$rate->rate_sum+$request->ivertinimas;
+        $rate->save();
+        return redirect()->back();
+    }
+
 }

@@ -33,6 +33,8 @@ Route::put('pateikti/{add}', [HotelController::class, 'pateiktiUzsakyma'])->name
 
 Route::put('atsaukti/{add}', [HotelController::class, 'atsauktiUzsakyma'])->name('atsaukti');
 
+Route::put('rate/{id}', [HotelController::class, 'rateHotels'])->name('ivertinti');
+
 Route::post('posts/search',[HotelController::class, 'findPost'])->name('find.post');
 
 Route::post('hotels/filter',[HotelController::class, 'filterHotels'])->name('hotels.filter');
